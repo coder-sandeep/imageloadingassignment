@@ -1,0 +1,11 @@
+<!-- button_rounded_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Background color (no color means transparent) -->
+    <solid android:color="@android:color/transparent" />
+    <!-- Border color and width -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF" />
+    <corners android:radius="10dp" />
+</shape>
