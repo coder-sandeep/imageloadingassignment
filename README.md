@@ -1,7 +1,8 @@
 # PAFAssignment
 The app is built using MVVM architecture. 
 
-Logs are written out whenever memory, disk or network is used, which can be used to find where image is loaded from./
+Logs are written out whenever memory, disk or network is used, which can be used to find where image is loaded from./\
+
 **(Can be seen in video recording attached or while running code in logcat)**
 
 It uses memory and disk caching to load images. If an image is in memory, it's used. If not, disk caching is used. 
