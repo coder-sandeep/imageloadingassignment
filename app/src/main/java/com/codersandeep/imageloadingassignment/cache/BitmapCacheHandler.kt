@@ -13,13 +13,15 @@ class BitmapCacheHandler(private val context: Context) {
     private val bitmapDiskCache = BitmapDiskCache(context)
 
     fun getImage(url: String, key: String): Bitmap {
-        val bitmapFromMemory = bitmapMemoryCache.getBitmapFromMemCache(url)
+        val bitmapFromMemory = bitmapMemoryCache.getBitmapFromMemCache(key)
         if (bitmapFromMemory == null) {
-            val bitmapFromDisk = bitmapDiskCache.getBitmapFromFile(key)
+            val bitmapFromDisk = bitmapDiskCache.getBitmapFromDisk(key)
             return if (bitmapFromDisk == null) {
-                val bitmapFromNetwork = getImageFromNetwork(url)
-                bitmapMemoryCache.addBitmapToMemoryCache(url, bitmapFromNetwork)
-                bitmapDiskCache.saveBitmapToFile(key, bitmapFromNetwork)
+                val (bitmapFromNetwork, isBrokenImage) = getImageFromNetwork(url)
+                if (!isBrokenImage) {
+                    bitmapMemoryCache.addBitmapToMemoryCache(key, bitmapFromNetwork)
+                    bitmapDiskCache.saveBitmapToDisk(key, bitmapFromNetwork)
+                }
                 Log.d("ablog", "Network")
                 bitmapFromNetwork
             } else {
@@ -28,25 +30,26 @@ class BitmapCacheHandler(private val context: Context) {
                 bitmapFromDisk
             }
         } else {
-            if (bitmapDiskCache.getBitmapFromFile(key) == null)
-                bitmapDiskCache.saveBitmapToFile(key, bitmapFromMemory)
+            if (bitmapDiskCache.getBitmapFromDisk(key) == null)
+                bitmapDiskCache.saveBitmapToDisk(key, bitmapFromMemory)
             Log.d("ablog", "Memory")
             return bitmapFromMemory
         }
     }
 
-    private fun getImageFromNetwork(url: String): Bitmap {
+    private fun getImageFromNetwork(url: String): Pair<Bitmap, Boolean> {
         return try {
             val conn = URL(url).openConnection()
             conn.connect()
             val inputStream = conn.getInputStream()
             val bitmap = BitmapFactory.decodeStream(inputStream)
             inputStream.close()
-            bitmapMemoryCache.addBitmapToMemoryCache(url, bitmap)
-            return bitmap
+            return Pair(bitmap, false)
         } catch (e: Exception) {
-            BitmapFactory.decodeResource(
-                context.resources, R.drawable.ic_broken_image
+            return Pair(
+                BitmapFactory.decodeResource(
+                    context.resources, R.drawable.ic_broken_image
+                ), true
             ) //returns placeholder if something goes wrong with image
         }
     }

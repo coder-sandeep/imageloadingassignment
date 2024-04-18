@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivThumbnail"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#41B06E"
-        android:src="@drawable/ic_launcher_foreground"
-        android:layout_margin="2dp"
-        android:scaleType="centerCrop"/>
-    <TextView
-        android:id="@+id/tvImageCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/round_circle"
-        android:layout_alignParentBottom="true"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:scaleType="centerCrop"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_alignParentEnd="true"
-        android:text="100"
-        android:textColor="@color/white"
-        android:paddingVertical="2dp"
-        android:paddingHorizontal="6dp"
-        android:layout_margin="6dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_margin="6dp"
+        android:background="@drawable/round_circle">
+
+        <TextView
+            android:id="@+id/tvImageCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/kumbhsans_bold"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            tools:text="100" />
+    </RelativeLayout>
+
 </RelativeLayout>

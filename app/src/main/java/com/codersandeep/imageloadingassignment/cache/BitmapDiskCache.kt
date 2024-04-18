@@ -28,7 +28,7 @@ class BitmapDiskCache(context: Context) {
         }
     }
 
-    fun saveBitmapToFile(key: String, bitmap: Bitmap) {
+    fun saveBitmapToDisk(key: String, bitmap: Bitmap) {
         val file = File(cacheDir, key)
         try {
             val fos = FileOutputStream(file)
@@ -40,7 +40,7 @@ class BitmapDiskCache(context: Context) {
         }
     }
 
-    fun getBitmapFromFile(key: String): Bitmap? {
+    fun getBitmapFromDisk(key: String): Bitmap? {
         val file = File(cacheDir, key)
         if (file.exists()) {
             try {

@@ -47,7 +47,7 @@ class RvAdapter(var article: ArticlesResponse? = null, context: Context) :
             val bitmap = bitmapCacheHandler.getImage(
                 "${thumbnail?.domain}/${thumbnail?.basePath}/${
                     thumbnail?.qualities?.get(
-                        1
+                        0
                     )
                 }/${thumbnail?.key}", thumbnail?.id ?: ""
             )
