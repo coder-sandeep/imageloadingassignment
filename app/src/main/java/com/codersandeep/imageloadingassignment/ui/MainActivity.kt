@@ -1,4 +1,4 @@
-package com.codersandeep.imageloadingassignment
+package com.codersandeep.imageloadingassignment.ui
 
 import android.content.Context
 import android.net.ConnectivityManager
@@ -8,20 +8,26 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.codersandeep.imageloadingassignment.databinding.ActivityMainBinding
 import com.codersandeep.imageloadingassignment.models.ArticlesResponse
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.codersandeep.imageloadingassignment.ui.adapter.RvAdapter
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var vm: MainViewModel
 
     private lateinit var adapter: RvAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        init()
+    }
+
+    private fun init() {
+        vm = ViewModelProvider(this)[MainViewModel::class.java]
 
         adapter = RvAdapter(context = this)
         binding.mainRv.adapter = adapter
@@ -37,6 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             binding.tvNoInternet2.text =
                 "No Internet found, Please check your connection or try again"
         }
+
         binding.btnTryAgain.setOnClickListener(this)
     }
 
@@ -61,24 +68,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         binding.pbLoading.visibility = View.VISIBLE
         binding.rlNoInternetView.visibility = View.GONE
         binding.mainRv.visibility = View.GONE
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = ApiClient.apiService.getAllArticles(100)
-            if (call.isSuccessful) {
-                runOnUiThread {
-                    binding.pbLoading.visibility = View.GONE
-                    binding.rlNoInternetView.visibility = View.GONE
-                    binding.mainRv.visibility = View.VISIBLE
-                }
-                call.body()?.let { setUpRv(it) }
+        vm.getAllArticles()
+        vm.articlesLiveData.observe(this) {
+            if (it.isSuccessful) {
+                binding.pbLoading.visibility = View.GONE
+                binding.rlNoInternetView.visibility = View.GONE
+                binding.mainRv.visibility = View.VISIBLE
+
+                it.body()?.let { setUpRv(it) }
             } else {
-                runOnUiThread {
-                    binding.rlNoInternetView.visibility = View.VISIBLE
-                    binding.tvNoInternet1.text = "Something Went Wrong"
-                    binding.tvNoInternet2.text =
-                        "Something went wrong while connection to out server"
-                    binding.mainRv.visibility = View.GONE
-                    binding.pbLoading.visibility = View.GONE
-                }
+                binding.rlNoInternetView.visibility = View.VISIBLE
+                binding.tvNoInternet1.text = "Something Went Wrong"
+                binding.tvNoInternet2.text =
+                    "Something went wrong while connection to out server"
+                binding.mainRv.visibility = View.GONE
+                binding.pbLoading.visibility = View.GONE
+
                 Toast.makeText(baseContext, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
         }
@@ -86,11 +91,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setUpRv(articlesResponse: ArticlesResponse) {
         adapter.updateData(articlesResponse)
-
-        runOnUiThread {
-            adapter.notifyDataSetChanged()
-        }
-
+        adapter.notifyDataSetChanged()
     }
 
     override fun onClick(v: View?) {
@@ -105,7 +106,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 ).show()
         }
     }
-
 }
 
 

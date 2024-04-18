@@ -1,11 +1,11 @@
-package com.codersandeep.imageloadingassignment.cache
+package com.codersandeep.imageloadingassignment.utils.cache
 
 import android.graphics.Bitmap
 import android.util.LruCache
 
 class BitmapMemoryCache {
     private val maxMemory = (Runtime.getRuntime().maxMemory() / 1024).toInt()
-    val cacheSize = maxMemory / 8 //if less memory few images won't be stored
+    val cacheSize = maxMemory / 8 //if less memory/cacheSize few images won't be stored
 
     private val memoryCache = object : LruCache<String, Bitmap>(cacheSize) {
         override fun sizeOf(key: String, bitmap: Bitmap): Int {

@@ -1,24 +1,19 @@
-package com.codersandeep.imageloadingassignment
+package com.codersandeep.imageloadingassignment.ui.adapter
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.StrictMode
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.codersandeep.imageloadingassignment.cache.BitmapCacheHandler
+import com.codersandeep.imageloadingassignment.R
+import com.codersandeep.imageloadingassignment.utils.cache.BitmapCacheHandler
 import com.codersandeep.imageloadingassignment.models.ArticlesResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
-import java.net.URL
 
 
 class RvAdapter(var article: ArticlesResponse? = null, context: Context) :

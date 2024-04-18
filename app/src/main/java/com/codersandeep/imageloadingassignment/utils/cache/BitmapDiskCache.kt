@@ -1,4 +1,4 @@
-package com.codersandeep.imageloadingassignment.cache
+package com.codersandeep.imageloadingassignment.utils.cache
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -15,16 +15,6 @@ class BitmapDiskCache(context: Context) {
     init {
         if (!cacheDir.exists()) {
             cacheDir.mkdirs()
-        }
-    }
-
-    companion object {
-        private var instance: BitmapDiskCache? = null
-
-        fun getInstance(context: Context): BitmapDiskCache {
-            return instance ?: synchronized(this) {
-                instance ?: BitmapDiskCache(context).also { instance = it }
-            }
         }
     }
 

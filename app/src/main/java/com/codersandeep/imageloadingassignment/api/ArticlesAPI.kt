@@ -1,4 +1,4 @@
-package com.codersandeep.imageloadingassignment
+package com.codersandeep.imageloadingassignment.api
 
 import com.codersandeep.imageloadingassignment.models.ArticlesResponse
 import retrofit2.Response

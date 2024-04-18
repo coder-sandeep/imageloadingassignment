@@ -1,11 +1,10 @@
-package com.codersandeep.imageloadingassignment.cache
+package com.codersandeep.imageloadingassignment.utils.cache
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import com.codersandeep.imageloadingassignment.R
-import java.lang.Exception
 import java.net.URL
 
 class BitmapCacheHandler(private val context: Context) {
@@ -21,18 +20,24 @@ class BitmapCacheHandler(private val context: Context) {
                 if (!isBrokenImage) {
                     bitmapMemoryCache.addBitmapToMemoryCache(key, bitmapFromNetwork)
                     bitmapDiskCache.saveBitmapToDisk(key, bitmapFromNetwork)
-                }
-                Log.d("ablog", "Network")
+                }//Saves bitmap to disk and cache if images downloaded from network
+                Log.d("cache log", "Network")
                 bitmapFromNetwork
             } else {
-                bitmapMemoryCache.addBitmapToMemoryCache(key, bitmapFromDisk)
-                Log.d("ablog", "Disk")
+                bitmapMemoryCache.addBitmapToMemoryCache(
+                    key,
+                    bitmapFromDisk
+                )//Saves bitmap to memory cache if found in disk
+                Log.d("cache log", "Disk")
                 bitmapFromDisk
             }
         } else {
             if (bitmapDiskCache.getBitmapFromDisk(key) == null)
-                bitmapDiskCache.saveBitmapToDisk(key, bitmapFromMemory)
-            Log.d("ablog", "Memory")
+                bitmapDiskCache.saveBitmapToDisk(
+                    key,
+                    bitmapFromMemory
+                ) //Saves bitmap to disk cache if found in memory
+            Log.d("cache log", "Memory")
             return bitmapFromMemory
         }
     }
@@ -50,7 +55,7 @@ class BitmapCacheHandler(private val context: Context) {
                 BitmapFactory.decodeResource(
                     context.resources, R.drawable.ic_broken_image
                 ), true
-            ) //returns placeholder if something goes wrong with image
+            ) //returns placeholder if something goes wrong with network image
         }
     }
 }
