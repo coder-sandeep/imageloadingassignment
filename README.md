@@ -13,7 +13,7 @@ Whenever an image is accessed from any source (network, disk, or memory), it's c
 
 Recording with log 👇
 
-https://drive.google.com/file/d/1Dvv7Z8A2WCnG3wLYXNuJTIGQU7m7X6u1/preview
+https://drive.google.com/file/d/1Dvv7Z8A2WCnG3wLYXNuJTIGQU7m7X6u1/view
 
 Demo video 👇
 
