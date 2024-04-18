@@ -19,4 +19,17 @@ https://drive.google.com/file/d/1Dvv7Z8A2WCnG3wLYXNuJTIGQU7m7X6u1/preview
 
 https://github.com/coder-sandeep/imageloadingassignment/assets/54542247/db378a58-cd79-4003-b829-4fe961edf89f
 
+<!DOCTYPE html>
+<html>
+<body>
+  
+  <iframe src="url video in google drive/preview" ></iframe>
+  
+  <!--aloow full screen add tag -->
+  
+<iframe allowfullscreen="allowfullscreen" src="https://drive.google.com/file/d/1Dvv7Z8A2WCnG3wLYXNuJTIGQU7m7X6u1/preview" ></iframe>
+
+</body>
+</html>
+
 
