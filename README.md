@@ -15,7 +15,7 @@ Recording with log 👇
 
 https://drive.google.com/file/d/1Dvv7Z8A2WCnG3wLYXNuJTIGQU7m7X6u1/view
 
-Demo video 👇
+App Demo 👇
 
 https://github.com/coder-sandeep/imageloadingassignment/assets/54542247/db378a58-cd79-4003-b829-4fe961edf89f
 
